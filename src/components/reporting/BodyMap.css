@@ -1,0 +1,29 @@
+.body-map-container {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.body-map-wrapper {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 20px;
+  background: #f9fafb;
+  cursor: crosshair;
+}
+
+.body-map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.body-map-svg circle {
+  transition: all 0.2s;
+}
+
+.body-map-svg circle:hover {
+  r: 10;
+  filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.5));
+}
+
