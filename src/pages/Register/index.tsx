@@ -1,8 +1,9 @@
 /**
- * Page d'inscription - Accessible pour les personnes en situation de handicap
+ * Registration Page - Accessible for people with disabilities
  */
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { registerTeacher, registerStudent, isTeacherRegistered, isStudentRegistered } from '@/lib/auth';
 import { PatternLock, type PatternLockRef } from '@/components/auth/PatternLock';
 import { PasswordInput } from '@/components/auth/PasswordInput';
@@ -11,6 +12,7 @@ import './Register.css';
 
 export function Register() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [role, setRole] = useState<'student' | 'teacher'>('student');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -48,24 +50,24 @@ export function Register() {
 
     // 验证学生信息
     if (!name.trim()) {
-      setError('Veuillez entrer votre nom');
+      setError(t('register.errors.nameRequired'));
       nameInputRef.current?.focus();
       return;
     }
 
     if (!studentId.trim()) {
-      setError('Veuillez entrer votre ID étudiant');
+      setError(t('register.errors.studentIdRequired'));
       return;
     }
 
     if (pattern.length < 4) {
-      setError('Veuillez dessiner votre motif de sécurité (minimum 4 points)');
+      setError(t('register.errors.patternRequired'));
       return;
     }
 
     // 检查学生ID是否已注册
     if (isStudentRegistered(studentId.trim())) {
-      setError('Cet ID étudiant est déjà enregistré. Veuillez vous connecter.');
+      setError(t('register.errors.studentIdTaken'));
       return;
     }
 
@@ -78,29 +80,29 @@ export function Register() {
     setError('');
 
     if (!name.trim()) {
-      setError('Veuillez entrer votre nom');
+      setError(t('register.errors.nameRequired'));
       nameInputRef.current?.focus();
       return;
     }
 
     if (!email.trim()) {
-      setError('Veuillez entrer votre email');
+      setError(t('register.errors.emailRequired'));
       return;
     }
 
     // 检查邮箱是否已注册
     if (isTeacherRegistered(email.trim())) {
-      setError('Cet email est déjà enregistré. Veuillez vous connecter.');
+      setError(t('register.errors.alreadyRegistered'));
       return;
     }
 
     if (!password) {
-      setError('Veuillez entrer un mot de passe');
+      setError(t('register.errors.passwordRequired'));
       return;
     }
 
     if (password.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères');
+      setError(t('register.errors.passwordTooShort'));
       return;
     }
 
@@ -114,16 +116,16 @@ export function Register() {
 
   const handleConfirmPatternComplete = (completedPattern: number[]) => {
     setConfirmPattern(completedPattern);
-    
+
     // 自动验证
     if (completedPattern.length >= 4) {
       const patternStr = JSON.stringify(completedPattern.sort());
       const originalPatternStr = JSON.stringify(pattern.sort());
-      
+
       if (patternStr === originalPatternStr) {
         handleFinalSubmit(undefined, completedPattern);
       } else {
-        setError('Les motifs ne correspondent pas. Réessayez.');
+        setError(t('register.errors.patternsMismatch'));
         if (confirmPatternLockRef.current) {
           const resetFn = (confirmPatternLockRef.current as any).resetPattern;
           if (resetFn) resetFn();
@@ -141,19 +143,19 @@ export function Register() {
 
     if (role === 'teacher') {
       if (!passwordData) {
-        setError('Veuillez entrer un mot de passe');
+        setError(t('register.errors.passwordRequired'));
         setIsSubmitting(false);
         return;
       }
       if (password !== confirmPassword) {
-        setError('Les mots de passe ne correspondent pas');
+        setError(t('register.errors.passwordMismatch'));
         setIsSubmitting(false);
         return;
       }
       registered = registerTeacher(email.trim(), passwordData, name.trim());
     } else {
       if (!patternData || patternData.length < 4) {
-        setError('Veuillez dessiner votre motif de sécurité');
+        setError(t('register.errors.patternRequired'));
         setIsSubmitting(false);
         return;
       }
@@ -166,7 +168,7 @@ export function Register() {
         navigate('/login');
       }, 2000);
     } else {
-      setError('Erreur lors de l\'inscription. Veuillez réessayer.');
+      setError(t('register.errors.registrationFailed'));
       setIsSubmitting(false);
     }
   };
@@ -191,8 +193,8 @@ export function Register() {
         <div className="register-container">
           <div className="success-message">
             <div className="success-icon">✓</div>
-            <h2>Inscription réussie!</h2>
-            <p>Redirection vers la page de connexion...</p>
+            <h2>{t('register.success.title')}</h2>
+            <p>{t('register.success.message')}</p>
           </div>
         </div>
       </div>
@@ -203,9 +205,9 @@ export function Register() {
     <div className="register-page">
       <div className="register-container">
         <div className="register-header">
-          <h1 className="register-title">Inscription</h1>
+          <h1 className="register-title">{t('register.title')}</h1>
           <p className="register-subtitle">
-            Créez votre compte pour accéder à l'application
+            {t('register.subtitle')}
           </p>
         </div>
 
@@ -214,7 +216,7 @@ export function Register() {
             <form onSubmit={handleStudentSubmit} className="register-form" noValidate>
               <div className="form-group">
                 <label htmlFor="role-select" className="form-label">
-                  Je suis
+                  {t('register.role.label')}
                 </label>
                 <div className="role-selection" role="radiogroup" aria-label="Sélectionnez votre rôle">
                   <button
@@ -229,8 +231,8 @@ export function Register() {
                     }}
                   >
                     <span className="role-icon">👤</span>
-                    <span className="role-label">Étudiant</span>
-                    <span className="role-description">Faire un signalement</span>
+                    <span className="role-label">{t('register.role.student.label')}</span>
+                    <span className="role-description">{t('register.role.student.description')}</span>
                   </button>
                   <button
                     type="button"
@@ -244,15 +246,15 @@ export function Register() {
                     }}
                   >
                     <span className="role-icon">👨‍🏫</span>
-                    <span className="role-label">Enseignant</span>
-                    <span className="role-description">Voir les signalements</span>
+                    <span className="role-label">{t('register.role.teacher.label')}</span>
+                    <span className="role-description">{t('register.role.teacher.description')}</span>
                   </button>
                 </div>
               </div>
 
               <div className="form-group">
                 <label htmlFor="name-input" className="form-label">
-                  Nom <span className="required" aria-label="requis">*</span>
+                  {t('register.name.label')} <span className="required" aria-label={t('common.required')}>*</span>
                 </label>
                 <input
                   ref={nameInputRef}
@@ -264,7 +266,7 @@ export function Register() {
                     setError('');
                   }}
                   className="form-input"
-                  placeholder="Entrez votre nom"
+                  placeholder={t('register.name.placeholder')}
                   required
                   aria-required="true"
                 />
@@ -272,7 +274,7 @@ export function Register() {
 
               <div className="form-group">
                 <label htmlFor="student-id-input" className="form-label">
-                  ID Étudiant <span className="required" aria-label="requis">*</span>
+                  {t('register.studentId.label')} <span className="required" aria-label={t('common.required')}>*</span>
                 </label>
                 <input
                   id="student-id-input"
@@ -283,19 +285,19 @@ export function Register() {
                     setError('');
                   }}
                   className="form-input"
-                  placeholder="Entrez votre ID étudiant"
+                  placeholder={t('register.studentId.placeholder')}
                   required
                   aria-required="true"
                 />
                 <span className="form-help">
-                  Cet ID sera utilisé pour vous identifier
+                  {t('register.studentId.help')}
                 </span>
               </div>
 
               <div className="form-group">
                 <div className="pattern-label-row">
                   <label className="form-label">
-                    Motif de sécurité <span className="required" aria-label="requis">*</span>
+                    {t('register.pattern.label')} <span className="required" aria-label={t('common.required')}>*</span>
                   </label>
                   {pattern.length > 0 && (
                     <button
@@ -308,18 +310,18 @@ export function Register() {
                       className="clear-pattern-btn"
                       aria-label="Effacer le motif"
                     >
-                      Effacer
+                      {t('register.clear')}
                     </button>
                   )}
                 </div>
                 <PatternLock
                   ref={patternLockRef}
                   onComplete={handlePatternComplete}
-                  onError={() => setError('Le motif doit contenir au moins 4 points')}
+                  onError={() => setError(t('register.errors.patternRequired'))}
                 />
                 {pattern.length >= 4 && (
                   <div className="pattern-confirmed">
-                    <p>✓ Motif enregistré ({pattern.length} points)</p>
+                    <p>✓ {t('register.confirmed', { count: pattern.length })}</p>
                   </div>
                 )}
               </div>
@@ -333,15 +335,15 @@ export function Register() {
               <div className="form-actions">
                 <Link to="/login">
                   <Button type="button" variant="outline" className="cancel-btn">
-                    Annuler
+                    {t('common.cancel')}
                   </Button>
                 </Link>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="submit-btn"
                   disabled={!name.trim() || !studentId.trim() || pattern.length < 4}
                 >
-                  Continuer
+                  {t('register.continue')}
                 </Button>
               </div>
             </form>
@@ -349,7 +351,7 @@ export function Register() {
             <form onSubmit={handleTeacherInfoSubmit} className="register-form" noValidate>
               <div className="form-group">
                 <label htmlFor="role-select" className="form-label">
-                  Je suis
+                  {t('register.role.label')}
                 </label>
                 <div className="role-selection" role="radiogroup" aria-label="Sélectionnez votre rôle">
                   <button
@@ -364,8 +366,8 @@ export function Register() {
                     }}
                   >
                     <span className="role-icon">👤</span>
-                    <span className="role-label">Étudiant</span>
-                    <span className="role-description">Faire un signalement</span>
+                    <span className="role-label">{t('register.role.student.label')}</span>
+                    <span className="role-description">{t('register.role.student.description')}</span>
                   </button>
                   <button
                     type="button"
@@ -379,15 +381,15 @@ export function Register() {
                     }}
                   >
                     <span className="role-icon">👨‍🏫</span>
-                    <span className="role-label">Enseignant</span>
-                    <span className="role-description">Voir les signalements</span>
+                    <span className="role-label">{t('register.role.teacher.label')}</span>
+                    <span className="role-description">{t('register.role.teacher.description')}</span>
                   </button>
                 </div>
               </div>
 
               <div className="form-group">
                 <label htmlFor="name-input" className="form-label">
-                  Nom <span className="required" aria-label="requis">*</span>
+                  {t('register.name.label')} <span className="required" aria-label={t('common.required')}>*</span>
                 </label>
                 <input
                   ref={nameInputRef}
@@ -399,7 +401,7 @@ export function Register() {
                     setError('');
                   }}
                   className="form-input"
-                  placeholder="Entrez votre nom"
+                  placeholder={t('register.name.placeholder')}
                   required
                   aria-required="true"
                 />
@@ -407,7 +409,7 @@ export function Register() {
 
               <div className="form-group">
                 <label htmlFor="email-input" className="form-label">
-                  Email <span className="required" aria-label="requis">*</span>
+                  {t('register.email.label')} <span className="required" aria-label={t('common.required')}>*</span>
                 </label>
                 <input
                   id="email-input"
@@ -418,7 +420,7 @@ export function Register() {
                     setError('');
                   }}
                   className="form-input"
-                  placeholder="votre.email@exemple.com"
+                  placeholder={t('register.email.placeholder')}
                   required
                   aria-required="true"
                 />
@@ -428,8 +430,8 @@ export function Register() {
                 <PasswordInput
                   value={password}
                   onChange={setPassword}
-                  label="Mot de passe"
-                  placeholder="Entrez votre mot de passe (minimum 6 caractères)"
+                  label={t('register.password.label')}
+                  placeholder={t('register.password.placeholder')}
                   required
                 />
               </div>
@@ -443,15 +445,15 @@ export function Register() {
               <div className="form-actions">
                 <Link to="/login">
                   <Button type="button" variant="outline" className="cancel-btn">
-                    Annuler
+                    {t('common.cancel')}
                   </Button>
                 </Link>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="submit-btn"
                   disabled={!name.trim() || !email.trim() || !password || password.length < 6}
                 >
-                  Continuer
+                  {t('register.continue')}
                 </Button>
               </div>
             </form>
@@ -460,12 +462,12 @@ export function Register() {
           <div className="confirm-step">
             <div className="step-header">
               <h2 className="step-title">
-                {role === 'teacher' ? 'Confirmez votre mot de passe' : 'Confirmez votre motif'}
+                {role === 'teacher' ? t('register.confirmPassword.label') : t('register.confirmPattern.label')}
               </h2>
               <p className="step-subtitle">
                 {role === 'teacher'
-                  ? 'Entrez à nouveau votre mot de passe pour confirmer'
-                  : 'Dessinez à nouveau votre motif pour confirmer'}
+                  ? t('register.confirmPassword.help')
+                  : t('register.confirmPattern.help')}
               </p>
             </div>
 
@@ -474,8 +476,8 @@ export function Register() {
                 <PasswordInput
                   value={confirmPassword}
                   onChange={setConfirmPassword}
-                  label="Confirmer le mot de passe"
-                  placeholder="Entrez à nouveau votre mot de passe"
+                  label={t('register.confirmPassword.label')}
+                  placeholder={t('register.confirmPassword.placeholder')}
                   required
                   autoFocus
                 />
@@ -488,14 +490,14 @@ export function Register() {
 
                 <div className="form-actions">
                   <Button type="button" variant="outline" onClick={handleBack} className="cancel-btn">
-                    Retour
+                    {t('common.back')}
                   </Button>
                   <Button
                     type="submit"
                     disabled={!confirmPassword || password !== confirmPassword || isSubmitting}
                     className="submit-btn"
                   >
-                    {isSubmitting ? 'Inscription...' : 'S\'inscrire'}
+                    {isSubmitting ? t('register.signingUp') : t('register.signUp')}
                   </Button>
                 </div>
               </form>
@@ -503,7 +505,7 @@ export function Register() {
               <div className="pattern-confirmation">
                 <div className="pattern-label-row">
                   <label className="form-label">
-                    Confirmez votre motif <span className="required" aria-label="requis">*</span>
+                    {t('register.confirmPattern.label')} <span className="required" aria-label={t('common.required')}>*</span>
                   </label>
                   {confirmPattern.length > 0 && (
                     <button
@@ -517,14 +519,14 @@ export function Register() {
                       aria-label="Effacer le motif"
                       disabled={isSubmitting}
                     >
-                      Effacer
+                      {t('register.clear')}
                     </button>
                   )}
                 </div>
                 <PatternLock
                   ref={confirmPatternLockRef}
                   onComplete={handleConfirmPatternComplete}
-                  onError={() => setError('Les motifs ne correspondent pas')}
+                  onError={() => setError(t('register.errors.patternsMismatch'))}
                   disabled={isSubmitting}
                 />
 
@@ -536,7 +538,7 @@ export function Register() {
 
                 <div className="form-actions">
                   <Button type="button" variant="outline" onClick={handleBack} className="cancel-btn">
-                    Retour
+                    {t('common.back')}
                   </Button>
                 </div>
               </div>
@@ -546,7 +548,7 @@ export function Register() {
 
         <div className="register-footer">
           <p className="footer-text">
-            Déjà un compte? <Link to="/login" className="login-link">Se connecter</Link>
+            {t('register.footer.text')} <Link to="/login" className="login-link">{t('register.footer.link')}</Link>
           </p>
         </div>
       </div>

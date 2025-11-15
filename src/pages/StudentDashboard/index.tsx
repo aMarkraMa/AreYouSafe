@@ -3,6 +3,7 @@
  */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getCurrentUser, logout } from '@/lib/auth';
 import { CategorySymbolSelector } from '@/components/reporting/CategorySymbolSelector';
 import { BodyMap } from '@/components/reporting/BodyMap';
@@ -46,11 +47,12 @@ const SYMBOL_CATEGORIES = [
 ];
 
 export function StudentDashboard() {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const currentUser = getCurrentUser();
   const studentId = currentUser?.id || 'student-001';
   const studentName = currentUser?.name || 'Student';
-  
+
   const [isEverythingFine, setIsEverythingFine] = useState<boolean | null>(null);
   const [wasEverythingFine, setWasEverythingFine] = useState<boolean>(false);
   const [symbols, setSymbols] = useState<SymbolSelection[]>([]);
@@ -82,11 +84,11 @@ export function StudentDashboard() {
   const handleSubmit = async () => {
     // Normal submission flow (only called when reporting something)
     if (!symbols.length) {
-      alert('Please select at least one incident to report');
+      alert(t('studentDashboard.errors.noIncidents'));
       return;
     }
     if (!emotion || !location || !frequency || !safety) {
-      alert('Please fill in all required fields');
+      alert(t('studentDashboard.errors.incomplete'));
       return;
     }
 
@@ -109,7 +111,7 @@ export function StudentDashboard() {
       }, 3000);
     } catch (error) {
       console.error('Error submitting report:', error);
-      alert('Error sending report. Please try again.');
+      alert(t('studentDashboard.errors.submitFailed'));
     } finally {
       setIsSubmitting(false);
     }
@@ -177,13 +179,13 @@ export function StudentDashboard() {
         if (locationsData.length === 0) {
           locationsData = await loadLocations();
         }
-        
+
         const defaultLocation = locationsData.length > 0 ? locationsData[0] : {
           id: 'general',
           name: 'General',
           icon: '🏫'
         };
-        
+
         await createReport({
           studentId,
           studentName,
@@ -200,7 +202,7 @@ export function StudentDashboard() {
         }, 3000);
       } catch (error) {
         console.error('Error submitting report:', error);
-        alert('Error sending report. Please try again.');
+        alert(t('studentDashboard.errors.submitFailed'));
         setIsSubmitting(false);
         setWasEverythingFine(false);
       }
@@ -214,20 +216,20 @@ export function StudentDashboard() {
       <div className="student-dashboard">
         <div className="success-message">
           <div className="success-icon">✓</div>
-          <h2>Report Sent Successfully</h2>
+          <h2>{t('studentDashboard.success.title')}</h2>
           <p>
             {wasEverythingFine
-              ? "Thank you for letting us know everything is fine. Your report has been received."
-              : "Your report has been received. A teacher will review it shortly."}
+              ? t('studentDashboard.success.fineMessage')
+              : t('studentDashboard.success.reportMessage')}
           </p>
           <div className="success-actions">
             <Link to="/">
               <Button variant="outline" className="previous-btn">
-                Back to Home
+                {t('studentDashboard.buttons.backToHome')}
               </Button>
             </Link>
             <Button onClick={resetForm} className="next-btn">
-              Create New Report
+              {t('studentDashboard.buttons.createNew')}
             </Button>
           </div>
         </div>
@@ -240,7 +242,7 @@ export function StudentDashboard() {
 
       <div className="dashboard-header-top">
         <Link to="/" className="dashboard-title-link">
-          <h1 className="dashboard-title">Je te crois</h1>
+          <h1 className="dashboard-title">{t('studentDashboard.title')}</h1>
         </Link>
         <div className="user-info">
           <span className="user-name">{studentName}</span>
@@ -253,7 +255,7 @@ export function StudentDashboard() {
             }}
             className="logout-btn"
           >
-            Déconnexion
+            {t('studentDashboard.logout')}
           </Button>
         </div>
       </div>
@@ -278,7 +280,7 @@ export function StudentDashboard() {
           <div className="form-step">
             <div className="question-header">
               <img src={howAreYouIcon} alt="How are you doing" className="question-icon" />
-              <h3>How are you doing today?</h3>
+              <h3>{t('studentDashboard.steps.1.title')}</h3>
             </div>
             <div className="everything-fine-options">
               <button
@@ -287,8 +289,8 @@ export function StudentDashboard() {
               >
                 <div className="fine-icon">⚠️</div>
                 <div className="fine-content">
-                  <h4 className="fine-title">I need to report something</h4>
-                  <p className="fine-description">Something happened that I want to report</p>
+                  <h4 className="fine-title">{t('studentDashboard.steps.1.reportIncident')}</h4>
+                  <p className="fine-description">{t('studentDashboard.steps.1.reportDescription')}</p>
                 </div>
               </button>
               <button
@@ -297,8 +299,8 @@ export function StudentDashboard() {
               >
                 <div className="fine-icon">✅</div>
                 <div className="fine-content">
-                  <h4 className="fine-title">Everything is fine</h4>
-                  <p className="fine-description">No incidents to report</p>
+                  <h4 className="fine-title">{t('studentDashboard.steps.1.everythingFine')}</h4>
+                  <p className="fine-description">{t('studentDashboard.steps.1.fineDescription')}</p>
                 </div>
               </button>
             </div>
@@ -336,16 +338,16 @@ export function StudentDashboard() {
           <div className="form-step">
             <div className="question-header">
               <div className="question-icon-placeholder">📋</div>
-              <h3>Review Your Report</h3>
+              <h3>{t('studentDashboard.steps.6.title')}</h3>
             </div>
             <div className="review-summary">
-              <p>You have selected the following incidents:</p>
+              <p>{t('studentDashboard.steps.6.summary')}</p>
               {symbols.length > 0 ? (
                 <div className="selected-symbols-list">
                   {symbols.map((symbol) => {
                     const category = SYMBOL_CATEGORIES.find(c => c.id === symbol.category);
                     const categoryIcon = category?.icon;
-                    const isImageIcon = typeof categoryIcon === 'string' && 
+                    const isImageIcon = typeof categoryIcon === 'string' &&
                       (categoryIcon.includes('/') || categoryIcon.includes('\\') || categoryIcon.endsWith('.png'));
                     return (
                       <div key={symbol.id} className="selected-symbol-item">
@@ -362,7 +364,7 @@ export function StudentDashboard() {
                   })}
                 </div>
               ) : (
-                <p style={{ color: '#FF8CC8', fontStyle: 'italic' }}>No incidents selected. You can go back to add incidents.</p>
+                <p style={{ color: '#FF8CC8', fontStyle: 'italic' }}>{t('studentDashboard.steps.6.noIncidents')}</p>
               )}
             </div>
           </div>
@@ -378,7 +380,7 @@ export function StudentDashboard() {
           <div className="form-step">
             <div className="question-header">
               <img src={whereIcon} alt="Where" className="question-icon" />
-              <h3>Where did this happen?</h3>
+              <h3>{t('studentDashboard.steps.8.title')}</h3>
             </div>
             <div className="locations-grid">
               {locations.map((loc) => (
@@ -399,7 +401,7 @@ export function StudentDashboard() {
           <div className="form-step">
             <div className="question-header">
               <img src={howOftenIcon} alt="How often" className="question-icon" />
-              <h3>How often does this happen?</h3>
+              <h3>{t('studentDashboard.steps.9.title')}</h3>
             </div>
             <div className="frequency-options">
               {frequencyOptions.map((opt) => (
@@ -430,13 +432,13 @@ export function StudentDashboard() {
               <>
                 <div className="question-header">
                   <img src={whichBodyPartIcon} alt="Which body part" className="question-icon" />
-                  <h3>Where were you touched?</h3>
+                  <h3>{t('studentDashboard.steps.11.title')}</h3>
                 </div>
                 <BodyMap onSelect={setBodyMap} selectedPoints={bodyMap} />
               </>
             ) : (
               <div style={{ textAlign: 'center', padding: '40px 20px', color: '#FF8CC8', fontSize: '18px', fontWeight: 600 }}>
-                No physical incidents reported. You can proceed to submit.
+                {t('studentDashboard.steps.11.noPhysical')}
               </div>
             )}
           </div>
@@ -445,15 +447,15 @@ export function StudentDashboard() {
         {isEverythingFine === false && step > 1 && (
           <div className="form-actions">
             <Button variant="outline" onClick={() => setStep(step - 1)} className="previous-btn">
-              Previous
+              {t('studentDashboard.buttons.previous')}
             </Button>
             {step < 11 ? (
               <Button onClick={() => setStep(step + 1)} disabled={!canProceed()} className="next-btn">
-                Next
+                {t('studentDashboard.buttons.next')}
               </Button>
             ) : (
               <Button onClick={handleSubmit} disabled={!canProceed() || isSubmitting} className="next-btn">
-                {isSubmitting ? 'Sending...' : 'Submit Report'}
+                {isSubmitting ? t('studentDashboard.buttons.sending') : t('studentDashboard.buttons.submit')}
               </Button>
             )}
           </div>
@@ -461,7 +463,7 @@ export function StudentDashboard() {
         {isEverythingFine === true && isSubmitting && (
           <div className="form-actions">
             <div className="submitting-message">
-              <p>Submitting your report...</p>
+              <p>{t('studentDashboard.buttons.sending')}</p>
             </div>
           </div>
         )}

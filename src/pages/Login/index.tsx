@@ -1,8 +1,9 @@
 /**
- * Page de connexion - Accessible pour les personnes en situation de handicap
+ * Login Page - Accessible for people with disabilities
  */
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { login, getCurrentUser, verifyTeacherPassword, verifyStudentPattern, getTeacherName, getStudentName } from '@/lib/auth';
 import { PatternLock, type PatternLockRef } from '@/components/auth/PatternLock';
 import { PasswordInput } from '@/components/auth/PasswordInput';
@@ -11,6 +12,7 @@ import './Login.css';
 
 export function Login() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [role, setRole] = useState<'student' | 'teacher'>('student');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -61,13 +63,13 @@ export function Login() {
 
     // Validation
     if (!name.trim()) {
-      setError('Veuillez entrer votre nom');
+      setError(t('login.errors.nameRequired'));
       nameInputRef.current?.focus();
       return;
     }
 
     if (role === 'teacher' && !email.trim()) {
-      setError('Veuillez entrer votre email (requis pour les enseignants)');
+      setError(t('login.errors.emailRequired'));
       return;
     }
 
@@ -94,31 +96,31 @@ export function Login() {
     if (role === 'teacher') {
       // 验证教师密码
       if (!passwordData) {
-        setError('Veuillez entrer votre mot de passe');
+        setError(t('login.errors.passwordRequired'));
         setIsSubmitting(false);
         return;
       }
       isValid = verifyTeacherPassword(email.trim(), passwordData);
       if (!isValid) {
-        setError('Email ou mot de passe incorrect. Vérifiez vos informations ou inscrivez-vous.');
+        setError(t('login.errors.invalidCredentials'));
         setIsSubmitting(false);
         return;
       }
     } else {
       // 验证学生手势
       if (!studentId.trim()) {
-        setError('Veuillez entrer votre ID étudiant');
+        setError(t('login.errors.studentIdRequired'));
         setIsSubmitting(false);
         return;
       }
       if (!patternData || patternData.length < 4) {
-        setError('Veuillez dessiner votre motif de sécurité (minimum 4 points)');
+        setError(t('login.errors.patternRequired'));
         setIsSubmitting(false);
         return;
       }
       isValid = verifyStudentPattern(studentId.trim(), patternData);
       if (!isValid) {
-        setError('ID étudiant ou motif incorrect. Veuillez vérifier vos informations.');
+        setError(t('login.errors.invalidPattern'));
         setIsSubmitting(false);
         // 重置手势
         patternLockRef.current?.resetPattern();
@@ -130,17 +132,17 @@ export function Login() {
     // 验证成功，进行登录
     setTimeout(() => {
       try {
-        const userId = role === 'teacher' 
+        const userId = role === 'teacher'
           ? `teacher_${Date.now()}`
           : `student_${Date.now()}`;
-        
+
         // 从存储中获取真实姓名
-        const finalName = role === 'teacher' 
+        const finalName = role === 'teacher'
           ? getTeacherName(email.trim()) || name.trim()
           : getStudentName(studentId.trim()) || name.trim();
-        
+
         login(userId, finalName, role, email.trim() || undefined);
-        
+
         // Rediriger selon le rôle
         if (role === 'teacher') {
           navigate('/teacher');
@@ -148,7 +150,7 @@ export function Login() {
           navigate('/student');
         }
       } catch (error) {
-        setError('Erreur lors de la connexion. Veuillez réessayer.');
+        setError(t('login.errors.loginFailed'));
         setIsSubmitting(false);
       }
     }, 300);
@@ -172,9 +174,9 @@ export function Login() {
     <div className="login-page" onKeyDown={handleKeyDown}>
       <div className="login-container">
         <div className="login-header">
-          <h1 className="login-title">Connexion</h1>
+          <h1 className="login-title">{t('login.title')}</h1>
           <p className="login-subtitle">
-            Connectez-vous pour accéder à votre espace
+            {t('login.subtitle')}
           </p>
         </div>
 
@@ -183,9 +185,9 @@ export function Login() {
           {/* Sélection du rôle */}
           <div className="form-group">
             <label htmlFor="role-select" className="form-label">
-              Je suis
+              {t('login.role.label')}
             </label>
-            <div className="role-selection" role="radiogroup" aria-label="Sélectionnez votre rôle">
+            <div className="role-selection" role="radiogroup" aria-label={t('login.role.ariaLabel')}>
               <button
                 type="button"
                 id="role-student"
@@ -205,8 +207,8 @@ export function Login() {
                 }}
               >
                 <span className="role-icon">👤</span>
-                <span className="role-label">Étudiant</span>
-                <span className="role-description">Faire un signalement</span>
+                <span className="role-label">{t('login.role.student.label')}</span>
+                <span className="role-description">{t('login.role.student.description')}</span>
               </button>
               <button
                 type="button"
@@ -227,8 +229,8 @@ export function Login() {
                 }}
               >
                 <span className="role-icon">👨‍🏫</span>
-                <span className="role-label">Enseignant</span>
-                <span className="role-description">Voir les signalements</span>
+                <span className="role-label">{t('login.role.teacher.label')}</span>
+                <span className="role-description">{t('login.role.teacher.description')}</span>
               </button>
             </div>
           </div>
@@ -236,7 +238,7 @@ export function Login() {
           {/* Nom */}
           <div className="form-group">
             <label htmlFor="name-input" className="form-label">
-              Nom <span className="required" aria-label="requis">*</span>
+              {t('login.name.label')} <span className="required" aria-label={t('common.required')}>*</span>
             </label>
             <input
               ref={nameInputRef}
@@ -248,7 +250,7 @@ export function Login() {
                 setError('');
               }}
               className="form-input"
-              placeholder="Entrez votre nom"
+              placeholder={t('login.name.placeholder')}
               required
               aria-required="true"
               aria-invalid={error ? 'true' : 'false'}
@@ -256,7 +258,7 @@ export function Login() {
               autoComplete="name"
             />
             <span id="name-help" className="form-help">
-              Votre nom sera utilisé pour identifier vos signalements
+              {t('login.name.help')}
             </span>
           </div>
 
@@ -264,7 +266,7 @@ export function Login() {
           {role === 'teacher' && (
             <div className="form-group">
               <label htmlFor="email-input" className="form-label">
-                Email <span className="required" aria-label="requis">*</span>
+                {t('login.email.label')} <span className="required" aria-label={t('common.required')}>*</span>
               </label>
               <input
                 id="email-input"
@@ -275,7 +277,7 @@ export function Login() {
                   setError('');
                 }}
                 className="form-input"
-                placeholder="votre.email@exemple.com"
+                placeholder={t('login.email.placeholder')}
                 required
                 aria-required="true"
                 aria-invalid={error ? 'true' : 'false'}
@@ -283,7 +285,7 @@ export function Login() {
                 autoComplete="email"
               />
               <span id="email-help" className="form-help">
-                Votre email est requis pour les enseignants
+                {t('login.email.help')}
               </span>
             </div>
           )}
@@ -292,7 +294,7 @@ export function Login() {
           {role === 'student' && (
             <div className="form-group">
               <label htmlFor="student-id-input" className="form-label">
-                ID Étudiant <span className="required" aria-label="requis">*</span>
+                {t('login.studentId.label')} <span className="required" aria-label={t('common.required')}>*</span>
               </label>
               <input
                 id="student-id-input"
@@ -303,7 +305,7 @@ export function Login() {
                   setError('');
                 }}
                 className="form-input"
-                placeholder="Entrez votre ID étudiant"
+                placeholder={t('login.studentId.placeholder')}
                 required
                 aria-required="true"
                 aria-invalid={error ? 'true' : 'false'}
@@ -311,7 +313,7 @@ export function Login() {
                 autoComplete="username"
               />
               <span id="student-id-help" className="form-help">
-                L'ID que vous avez utilisé lors de l'inscription
+                {t('login.studentId.help')}
               </span>
             </div>
           )}
@@ -336,7 +338,7 @@ export function Login() {
               onClick={() => navigate('/')}
               className="cancel-btn"
             >
-              Annuler
+              {t('common.cancel')}
             </Button>
             <Button
               type="submit"
@@ -344,7 +346,7 @@ export function Login() {
               className="submit-btn"
               aria-busy={isSubmitting}
             >
-              Continuer
+              {t('login.continue')}
             </Button>
           </div>
         </form>
@@ -352,12 +354,12 @@ export function Login() {
           <div className="verification-step">
             <div className="verification-header">
               <h2 className="verification-title">
-                {role === 'teacher' ? 'Vérification du mot de passe' : 'Dessinez votre motif de sécurité'}
+                {role === 'teacher' ? t('login.verification.password.title') : t('login.verification.pattern.title')}
               </h2>
               <p className="verification-subtitle">
-                {role === 'teacher' 
-                  ? 'Entrez votre mot de passe pour continuer'
-                  : 'Dessinez votre motif de sécurité pour continuer (minimum 4 points)'}
+                {role === 'teacher'
+                  ? t('login.verification.password.subtitle')
+                  : t('login.verification.pattern.subtitle')}
               </p>
             </div>
 
@@ -366,8 +368,8 @@ export function Login() {
                 <PasswordInput
                   value={password}
                   onChange={setPassword}
-                  label="Mot de passe"
-                  placeholder="Entrez votre mot de passe"
+                  label={t('login.password.label')}
+                  placeholder={t('login.password.placeholder')}
                   error={error}
                   required
                   autoFocus
@@ -386,7 +388,7 @@ export function Login() {
                     onClick={handleBack}
                     className="cancel-btn"
                   >
-                    Retour
+                    {t('common.back')}
                   </Button>
                   <Button
                     type="submit"
@@ -394,7 +396,7 @@ export function Login() {
                     className="submit-btn"
                     aria-busy={isSubmitting}
                   >
-                    {isSubmitting ? 'Vérification...' : 'Se connecter'}
+                    {isSubmitting ? t('login.signingIn') : t('login.signIn')}
                   </Button>
                 </div>
               </form>
@@ -403,7 +405,7 @@ export function Login() {
                 <PatternLock
                   ref={patternLockRef}
                   onComplete={handlePatternComplete}
-                  onError={() => setError('Motif incorrect. Réessayez.')}
+                  onError={() => setError(t('login.errors.patternError'))}
                   disabled={isSubmitting}
                 />
 
@@ -420,13 +422,13 @@ export function Login() {
                     onClick={handleBack}
                     className="cancel-btn"
                   >
-                    Retour
+                    {t('common.back')}
                   </Button>
                 </div>
 
                 <div className="pattern-help">
                   <p className="help-text">
-                    <strong>Astuce:</strong> Dessinez le motif que vous avez créé lors de l'inscription
+                    <strong>{t('login.pattern.help.title')}:</strong> {t('login.pattern.help.description')}
                   </p>
                 </div>
               </div>
@@ -437,11 +439,10 @@ export function Login() {
         {/* Footer avec lien vers inscription */}
         <div className="login-footer">
           <p className="footer-text">
-            Pas encore de compte? <Link to="/register" className="register-link">S'inscrire</Link>
+            {t('login.footer.text')} <Link to="/register" className="register-link">{t('login.footer.link')}</Link>
           </p>
         </div>
       </div>
     </div>
   );
 }
-

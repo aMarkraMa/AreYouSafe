@@ -7,6 +7,210 @@
     "helpSomeoneInNeed": "Aider quelqu'un dans le besoin",
     "findOut": "En savoir plus"
   },
+  "common": {
+    "required": "requis",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "continue": "Continuer"
+  },
+  "login": {
+    "title": "Connexion",
+    "subtitle": "Connectez-vous pour accéder à votre espace",
+    "role": {
+      "label": "Je suis",
+      "ariaLabel": "Sélectionnez votre rôle",
+      "student": {
+        "label": "Étudiant",
+        "description": "Faire un signalement"
+      },
+      "teacher": {
+        "label": "Enseignant",
+        "description": "Voir les signalements"
+      }
+    },
+    "name": {
+      "label": "Nom",
+      "placeholder": "Entrez votre nom",
+      "help": "Votre nom sera utilisé pour identifier vos signalements"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "votre.email@exemple.com",
+      "help": "Votre email est requis pour les enseignants"
+    },
+    "studentId": {
+      "label": "ID Étudiant",
+      "placeholder": "Entrez votre ID étudiant",
+      "help": "L'ID que vous avez utilisé lors de l'inscription"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "placeholder": "Entrez votre mot de passe"
+    },
+    "continue": "Continuer",
+    "signIn": "Se connecter",
+    "signingIn": "Connexion...",
+    "verification": {
+      "password": {
+        "title": "Vérification du mot de passe",
+        "subtitle": "Entrez votre mot de passe pour continuer"
+      },
+      "pattern": {
+        "title": "Dessinez votre motif de sécurité",
+        "subtitle": "Dessinez votre motif de sécurité pour continuer (minimum 4 points)"
+      }
+    },
+    "pattern": {
+      "help": {
+        "title": "Astuce",
+        "description": "Dessinez le motif que vous avez créé lors de l'inscription"
+      }
+    },
+    "footer": {
+      "text": "Pas encore de compte?",
+      "link": "S'inscrire"
+    },
+    "errors": {
+      "nameRequired": "Veuillez entrer votre nom",
+      "emailRequired": "Veuillez entrer votre email (requis pour les enseignants)",
+      "studentIdRequired": "Veuillez entrer votre ID étudiant",
+      "passwordRequired": "Veuillez entrer votre mot de passe",
+      "patternRequired": "Veuillez dessiner votre motif de sécurité (minimum 4 points)",
+      "invalidCredentials": "Email ou mot de passe incorrect. Vérifiez vos informations ou inscrivez-vous.",
+      "invalidPattern": "ID étudiant ou motif incorrect. Veuillez vérifier vos informations.",
+      "patternError": "Motif incorrect. Réessayez.",
+      "loginFailed": "Erreur lors de la connexion. Veuillez réessayer."
+    }
+  },
+  "register": {
+    "title": "Inscription",
+    "subtitle": "Créez votre compte pour accéder à l'application",
+    "role": {
+      "label": "Je suis",
+      "student": {
+        "label": "Étudiant",
+        "description": "Faire un signalement"
+      },
+      "teacher": {
+        "label": "Enseignant",
+        "description": "Voir les signalements"
+      }
+    },
+    "name": {
+      "label": "Nom",
+      "placeholder": "Entrez votre nom"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "votre.email@exemple.com"
+    },
+    "studentId": {
+      "label": "ID Étudiant",
+      "placeholder": "Entrez votre ID étudiant",
+      "help": "Cet ID sera utilisé pour vous identifier"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "placeholder": "Entrez votre mot de passe (minimum 6 caractères)"
+    },
+    "confirmPassword": {
+      "label": "Confirmer le mot de passe",
+      "placeholder": "Entrez à nouveau votre mot de passe"
+    },
+    "pattern": {
+      "label": "Motif de sécurité",
+      "help": "Dessinez un motif avec au moins 4 points"
+    },
+    "confirmPattern": {
+      "label": "Confirmez votre motif",
+      "help": "Dessinez à nouveau votre motif pour confirmer"
+    },
+    "clear": "Effacer",
+    "confirmed": "✓ Motif enregistré ({{count}} points)",
+    "continue": "Continuer",
+    "signUp": "S'inscrire",
+    "signingUp": "Inscription...",
+    "footer": {
+      "text": "Déjà un compte?",
+      "link": "Se connecter"
+    },
+    "errors": {
+      "nameRequired": "Veuillez entrer votre nom",
+      "emailRequired": "Veuillez entrer votre email",
+      "studentIdRequired": "Veuillez entrer votre ID étudiant",
+      "passwordRequired": "Veuillez entrer un mot de passe",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "patternRequired": "Veuillez dessiner votre motif de sécurité",
+      "patternsMismatch": "Les motifs ne correspondent pas. Réessayez.",
+      "alreadyRegistered": "Cet email est déjà enregistré. Veuillez vous connecter.",
+      "studentIdTaken": "Cet ID étudiant est déjà enregistré. Veuillez vous connecter.",
+      "registrationFailed": "Erreur lors de l'inscription. Veuillez réessayer."
+    },
+    "success": {
+      "title": "Inscription réussie!",
+      "message": "Redirection vers la page de connexion..."
+    }
+  },
+  "studentDashboard": {
+    "title": "Je te crois",
+    "logout": "Déconnexion",
+    "steps": {
+      "1": {
+        "title": "Comment allez-vous aujourd'hui?",
+        "reportIncident": "J'ai besoin de signaler quelque chose",
+        "reportDescription": "Quelque chose s'est passé que je veux signaler",
+        "everythingFine": "Tout va bien",
+        "fineDescription": "Aucun incident à signaler"
+      },
+      "2": "Harcèlement physique",
+      "3": "Harcèlement verbal",
+      "4": "Harcèlement social",
+      "5": "Harcèlement cyber",
+      "6": {
+        "title": "Examiner votre signalement",
+        "summary": "Vous avez sélectionné les incidents suivants:",
+        "noIncidents": "Aucun incident sélectionné. Vous pouvez revenir en arrière pour ajouter des incidents."
+      },
+      "7": "Comment vous sentez-vous?",
+      "8": {
+        "title": "Où cela s'est-il passé?",
+        "subtitle": "Sélectionnez le lieu"
+      },
+      "9": {
+        "title": "À quelle fréquence cela se produit-il?",
+        "options": {
+          "once": "Une fois",
+          "sometimes": "Parfois",
+          "often": "Souvent",
+          "always": "Toujours"
+        }
+      },
+      "10": "À quel point vous sentez-vous en sécurité?",
+      "11": {
+        "title": "Où avez-vous été touché?",
+        "noPhysical": "Aucun incident physique signalé. Vous pouvez procéder à l'envoi."
+      }
+    },
+    "buttons": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "submit": "Envoyer le signalement",
+      "sending": "Envoi en cours...",
+      "backToHome": "Retour à l'accueil",
+      "createNew": "Créer un nouveau signalement"
+    },
+    "success": {
+      "title": "Signalement envoyé avec succès",
+      "fineMessage": "Merci de nous avoir fait savoir que tout va bien. Votre signalement a été reçu.",
+      "reportMessage": "Votre signalement a été reçu. Un enseignant l'examinera sous peu."
+    },
+    "errors": {
+      "noIncidents": "Veuillez sélectionner au moins un incident à signaler",
+      "incomplete": "Veuillez remplir tous les champs requis",
+      "submitFailed": "Erreur lors de l'envoi du signalement. Veuillez réessayer."
+    }
+  },
   "helpOthers": {
     "title": "Aider quelqu'un dans le besoin",
     "whoNeedsHelp": "Qui a besoin d'aide?",
@@ -63,113 +267,6 @@
     "beSupportiveDescription": "Offrez des paroles gentilles et du soutien à la personne qui a été harcelée.",
     "getHelpForMyself": "Obtenir de l'aide pour moi-même",
     "helpSomeoneInNeed": "Aider quelqu'un dans le besoin"
-  },
-  "login": {
-    "title": "Connexion",
-    "subtitle": "Connectez-vous pour accéder à votre compte",
-    "student": "Étudiant",
-    "studentDescription": "Faire un signalement",
-    "teacher": "Enseignant",
-    "teacherDescription": "Voir les signalements",
-    "name": "Nom",
-    "nameHelp": "Votre nom sera utilisé pour identifier vos signalements",
-    "email": "Email",
-    "emailHelp": "Votre email est requis pour les enseignants",
-    "studentId": "ID Étudiant",
-    "studentIdHelp": "L'ID que vous avez utilisé lors de l'inscription",
-    "password": "Mot de passe",
-    "loginButton": "Se connecter",
-    "cancel": "Annuler",
-    "noAccount": "Pas encore de compte?",
-    "register": "S'inscrire",
-    "verificationTitle": "Vérification du mot de passe",
-    "verificationSubtitle": "Entrez votre mot de passe pour continuer",
-    "patternTitle": "Dessinez votre motif de sécurité",
-    "patternSubtitle": "Dessinez votre motif de sécurité pour continuer (minimum 4 points)",
-    "enterPassword": "Entrez votre mot de passe",
-    "back": "Retour",
-    "verifying": "Vérification...",
-    "connecting": "Connexion...",
-    "error": "Erreur",
-    "invalidCredentials": "Email ou mot de passe incorrect. Vérifiez vos informations ou inscrivez-vous.",
-    "invalidPattern": "ID ou motif incorrect. Veuillez vérifier vos informations.",
-    "patternMinPoints": "Veuillez dessiner votre motif de sécurité (minimum 4 points)",
-    "enterName": "Veuillez entrer votre nom",
-    "enterEmail": "Veuillez entrer votre email",
-    "enterStudentId": "Veuillez entrer votre ID étudiant",
-    "enterPasswordRequired": "Veuillez entrer un mot de passe"
-  },
-  "register": {
-    "title": "Inscription",
-    "subtitle": "Créez votre compte pour accéder à l'application",
-    "iAm": "Je suis",
-    "name": "Nom",
-    "email": "Email",
-    "studentId": "ID Étudiant",
-    "studentIdHelp": "Cet ID sera utilisé pour vous identifier",
-    "password": "Mot de passe",
-    "passwordPlaceholder": "Entrez votre mot de passe (minimum 6 caractères)",
-    "confirmPassword": "Confirmer le mot de passe",
-    "confirmPasswordPlaceholder": "Entrez à nouveau votre mot de passe",
-    "securityPattern": "Motif de sécurité",
-    "patternHelp": "Ceci sera votre méthode de connexion",
-    "confirmPattern": "Confirmez votre motif",
-    "confirmPatternHelp": "Dessinez à nouveau votre motif pour confirmer",
-    "clear": "Effacer",
-    "confirmed": "✓ Motif enregistré ({{count}} points)",
-    "continue": "Continuer",
-    "cancel": "Annuler",
-    "back": "Retour",
-    "registering": "Inscription...",
-    "register": "S'inscrire",
-    "success": "Inscription réussie!",
-    "redirecting": "Redirection vers la page de connexion...",
-    "alreadyAccount": "Déjà un compte?",
-    "login": "Se connecter",
-    "error": "Erreur",
-    "nameRequired": "Veuillez entrer votre nom",
-    "emailRequired": "Veuillez entrer votre email",
-    "studentIdRequired": "Veuillez entrer votre ID étudiant",
-    "passwordRequired": "Veuillez entrer un mot de passe",
-    "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
-    "passwordMismatch": "Les mots de passe ne correspondent pas",
-    "patternRequired": "Veuillez dessiner votre motif de sécurité",
-    "patternMinPoints": "Le motif doit contenir au moins 4 points",
-    "patternMismatch": "Les motifs ne correspondent pas. Réessayez.",
-    "alreadyRegistered": "Cet ID étudiant est déjà enregistré. Veuillez vous connecter.",
-    "alreadyRegisteredEmail": "Cet email est déjà enregistré. Veuillez vous connecter.",
-    "registrationError": "Erreur lors de l'inscription. Veuillez réessayer."
-  },
-  "studentDashboard": {
-    "title": "Je te crois",
-    "logout": "Déconnexion",
-    "howAreYou": "Comment allez-vous aujourd'hui?",
-    "needToReport": "J'ai besoin de signaler quelque chose",
-    "needToReportDescription": "Quelque chose s'est passé que je veux signaler",
-    "everythingFine": "Tout va bien",
-    "everythingFineDescription": "Aucun incident à signaler",
-    "reviewReport": "Examiner votre signalement",
-    "selectedIncidents": "Vous avez sélectionné les incidents suivants:",
-    "noIncidents": "Aucun incident sélectionné. Vous pouvez revenir en arrière pour ajouter des incidents.",
-    "whereDidThisHappen": "Où cela s'est-il passé?",
-    "howOften": "À quelle fréquence cela se produit-il?",
-    "frequency": {
-      "once": "Une fois",
-      "sometimes": "Parfois",
-      "often": "Souvent",
-      "always": "Toujours"
-    },
-    "noPhysicalIncidents": "Aucun incident physique signalé. Vous pouvez procéder à l'envoi.",
-    "whereWereYouTouched": "Où avez-vous été touché?",
-    "sending": "Envoi en cours...",
-    "submitReport": "Envoyer le signalement",
-    "reportSent": "Signalement envoyé avec succès",
-    "reportReceived": "Votre signalement a été reçu. Un enseignant l'examinera sous peu.",
-    "everythingFineReceived": "Merci de nous avoir fait savoir que tout va bien. Votre signalement a été reçu.",
-    "createNewReport": "Créer un nouveau signalement",
-    "backToHome": "Retour à l'accueil",
-    "previous": "Précédent",
-    "next": "Suivant"
   },
   "teacherDashboard": {
     "title": "Are You Safe - Tableau de bord enseignant",
@@ -232,20 +329,5 @@
     "reports": "Signalements:",
     "pending": "En attente:",
     "resolved": "Résolus:"
-  },
-  "common": {
-    "yes": "Oui",
-    "no": "Non",
-    "cancel": "Annuler",
-    "confirm": "Confirmer",
-    "save": "Enregistrer",
-    "delete": "Supprimer",
-    "edit": "Modifier",
-    "close": "Fermer",
-    "loading": "Chargement...",
-    "error": "Erreur",
-    "success": "Succès",
-    "warning": "Avertissement",
-    "info": "Information"
   }
 }
