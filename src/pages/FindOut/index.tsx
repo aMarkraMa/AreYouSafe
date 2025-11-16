@@ -4,64 +4,82 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, X, Check } from 'lucide-react';
 import './FindOut.css';
 
-// Training slides data
+// Training slides data with isGood property
 const trainingSlides = [
   {
     id: 1,
     gif: 'src/assets/gifs/StrangerDanger.gif',
     title: 'Stranger Danger',
-    description: 'If a stranger approaches or offers something that feels wrong, say no, move away, and get help from a trusted adult.'
+    description: 'If a stranger approaches or offers something that feels wrong, say no, move away, and get help from a trusted adult.',
+    isGood: false, // This is a BAD scenario
+    question: 'Is this situation safe or unsafe?'
   },
   {
     id: 2,
     gif: 'src/assets/gifs/PersonalSpaces.gif',
     title: 'Personal & Private Parts',
-    description: 'Your personal space and private parts are yours. If anyone tries to touch you, say no, step away, and tell a trusted adult.'
+    description: 'Your personal space and private parts are yours. If anyone tries to touch you, say no, step away, and tell a trusted adult.',
+    isGood: true, // Knowing about personal space is GOOD
+    question: 'Is knowing about personal boundaries good or bad?'
   },
   {
     id: 3,
     gif: 'src/assets/gifs/BadTouch.gif',
     title: 'Bad Touch',
-    description: 'If someone touches you in a way that feels uncomfortable, say no, run away, and tell a trusted adult immediately.'
+    description: 'If someone touches you in a way that feels uncomfortable, say no, run away, and tell a trusted adult immediately.',
+    isGood: false, // This is a BAD scenario
+    question: 'Is this type of touch safe or unsafe?'
   },
   {
     id: 4,
     gif: 'src/assets/gifs/SexualHarasment.gif',
     title: 'Physical/Sexual Harassment',
-    description: 'If someone touches you, grabs you, or behaves in a way that feels unsafe, say no loudly, move away, and seek help from a trusted adult.'
+    description: 'If someone touches you, grabs you, or behaves in a way that feels unsafe, say no loudly, move away, and seek help from a trusted adult.',
+    isGood: false, // This is a BAD scenario
+    question: 'Is this behavior acceptable or unacceptable?'
   },
   {
     id: 5,
     gif: 'src/assets/gifs/AdultContent.gif',
     title: 'Adult Content',
-    description: 'If you accidentally see adult or inappropriate content, look away, leave the situation, and tell a trusted adult about it.'
+    description: 'If you accidentally see adult or inappropriate content, look away, leave the situation, and tell a trusted adult about it.',
+    isGood: false, // This is a BAD scenario
+    question: 'Is viewing adult content safe for children?'
   },
   {
     id: 6,
     gif: 'src/assets/gifs/Bully.gif',
     title: 'Bullying',
-    description: 'If someone is teasing, hurting, or scaring you, say stop, move away, and ask a trusted adult for help.'
+    description: 'If someone is teasing, hurting, or scaring you, say stop, move away, and ask a trusted adult for help.',
+    isGood: false, // This is a BAD scenario
+    question: 'Is bullying acceptable behavior?'
   },
   {
     id: 7,
     gif: 'src/assets/gifs/Uncomfortable.gif',
     title: 'Feeling Uncomfortable',
-    description: 'If something or someone makes you feel uneasy, listen to that feeling—say no, step away, and talk to a trusted adult.'
+    description: 'If something or someone makes you feel uneasy, listen to that feeling—say no, step away, and talk to a trusted adult.',
+    isGood: false, // Feeling uncomfortable is a warning sign (BAD situation)
+    question: 'Should you ignore uncomfortable feelings?'
   },
   {
     id: 8,
     gif: 'src/assets/gifs/SeekHelp.gif',
     title: 'Talk to Trusted Adult',
-    description: 'When you feel scared, confused, or uncomfortable, talk to a trusted adult so they can help you stay safe.'
+    description: 'When you feel scared, confused, or uncomfortable, talk to a trusted adult so they can help you stay safe.',
+    isGood: true, // Seeking help is GOOD
+    question: 'Is talking to a trusted adult a good action?'
   },
   {
     id: 9,
     gif: 'src/assets/gifs/AdultAttention.gif',
     title: 'Seek Help from Trusted Adult',
-    description: 'If you face anything unsafe, say no, get away from the situation, and immediately seek help from a trusted adult.'
+    description: 'If you face anything unsafe, say no, get away from the situation, and immediately seek help from a trusted adult.',
+    isGood: true, // Seeking help is GOOD
+    question: 'Is seeking help from adults a good response?'
   }
   
 ];
@@ -69,18 +87,38 @@ const trainingSlides = [
 export function FindOut() {
   const [currentSlide, setCurrentSlide] = useState(1);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const currentContent = trainingSlides[currentSlide - 1];
   const isLastSlide = currentSlide === trainingSlides.length;
 
-  const handleNext = () => {
-    if (currentSlide < trainingSlides.length) {
-      setCurrentSlide(currentSlide + 1);
+  const handleAnswer = (userAnswerIsGood: boolean) => {
+    const isCorrect = userAnswerIsGood === currentContent.isGood;
+    
+    if (isCorrect) {
+      setFeedback('correct');
+      setShowAnswer(true);
+      
+      // Auto-advance to next slide after showing correct feedback
+      setTimeout(() => {
+        if (currentSlide < trainingSlides.length) {
+          setCurrentSlide(currentSlide + 1);
+          setFeedback(null);
+          setShowAnswer(false);
+        } else {
+          // Last slide - show completion modal
+          setShowCompletionModal(true);
+        }
+      }, 2000);
+    } else {
+      setFeedback('incorrect');
+      
+      // Reset feedback after 2 seconds to allow retry
+      setTimeout(() => {
+        setFeedback(null);
+      }, 2000);
     }
-  };
-
-  const handleFinish = () => {
-    setShowCompletionModal(true);
   };
 
   const handleCloseModal = () => {
@@ -126,29 +164,59 @@ export function FindOut() {
               />
             </div>
             <h2 className="section-title">{currentContent.title}</h2>
-            <p className="section-text">{currentContent.description}</p>
+            
+            {/* Question */}
+            {!showAnswer && (
+              <div className="question-container">
+                <p className="question-text">{currentContent.question}</p>
+              </div>
+            )}
 
-            {/* Navigation Button */}
-            <div className="slide-navigation">
-              {!isLastSlide ? (
-                <Button 
-                  size="lg" 
-                  className="nav-btn next-btn"
-                  onClick={handleNext}
+            {/* Answer Buttons */}
+            {!showAnswer && (
+              <div className="answer-buttons">
+                <button
+                  className={`answer-btn bad-btn ${feedback === 'incorrect' ? 'shake' : ''}`}
+                  onClick={() => handleAnswer(false)}
+                  disabled={feedback !== null}
                 >
-                  Next
-                </Button>
-              ) : (
-                <Button 
-                  size="lg" 
-                  className="nav-btn finish-btn"
-                  onClick={handleFinish}
+                  <X className="answer-icon" />
+                  <span>Unsafe/Bad</span>
+                </button>
+                <button
+                  className={`answer-btn good-btn ${feedback === 'incorrect' ? 'shake' : ''}`}
+                  onClick={() => handleAnswer(true)}
+                  disabled={feedback !== null}
                 >
-                  <CheckCircle className="finish-icon" />
-                  Finish Training
-                </Button>
-              )}
-            </div>
+                  <Check className="answer-icon" />
+                  <span>Safe/Good</span>
+                </button>
+              </div>
+            )}
+
+            {/* Feedback Message */}
+            {feedback && (
+              <div className={`feedback-message ${feedback}`}>
+                {feedback === 'correct' ? (
+                  <>
+                    <CheckCircle className="feedback-icon" />
+                    <p className="feedback-text">Correct! Well done!</p>
+                  </>
+                ) : (
+                  <>
+                    <X className="feedback-icon" />
+                    <p className="feedback-text">Wrong! Try again.</p>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Show description after correct answer */}
+            {showAnswer && (
+              <div className="answer-explanation">
+                <p className="section-text">{currentContent.description}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
