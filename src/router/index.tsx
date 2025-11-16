@@ -5,9 +5,6 @@ import { StudentDashboard } from "@/pages/StudentDashboard/index";
 import { TeacherDashboard } from "@/pages/TeacherDashboard/index";
 import { HelpOthers } from "@/pages/HelpOthers/index";
 import { FindOut } from "@/pages/FindOut/index";
-import { Login } from "@/pages/Login/index";
-import { Register } from "@/pages/Register/index";
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { Splash } from "@/pages/Splash/index";
 
 function SplashThenHome() {
@@ -35,36 +32,16 @@ const routes = [
         element: <SplashThenHome />
     },
     {
-        path: "/login",
-        element: <Login />
-    },
-    {
-        path: "/register",
-        element: <Register />
-    },
-    {
         path: "/student",
-        element: (
-            <ProtectedRoute requiredRole="student">
-                <StudentDashboard />
-            </ProtectedRoute>
-        )
+        element: <StudentDashboard />
     },
     {
         path: "/teacher",
-        element: (
-            <ProtectedRoute requiredRole="teacher">
-                <TeacherDashboard />
-            </ProtectedRoute>
-        )
+        element: <TeacherDashboard />
     },
     {
         path: "/help-others",
-        element: (
-            <ProtectedRoute requiredRole="student">
-                <HelpOthers />
-            </ProtectedRoute>
-        )
+        element: <HelpOthers />
     },
     {
         path: "/find-out",
