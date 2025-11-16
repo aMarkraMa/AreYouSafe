@@ -146,7 +146,7 @@ export function TeacherDashboard() {
       <div className="dashboard-header">
         <div className="dashboard-header-top">
           <div>
-            <h1 className="dashboard-title">Are You Safe - Teacher Dashboard</h1>
+            <h1 className="dashboard-title">Teacher Dashboard</h1>
             {currentUser && (
               <p className="teacher-name">Enseignant: {currentUser.name}</p>
             )}

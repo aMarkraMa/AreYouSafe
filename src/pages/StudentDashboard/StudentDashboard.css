@@ -7,8 +7,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-x: hidden;
+  overflow-x: visible;
   overflow-y: auto;
+  position: relative;
 }
 
 @keyframes gradientShift {
@@ -63,68 +64,151 @@
   transform: scale(1.05) rotate(-2deg);
 }
 
-/* Progress Bar */
+/* Progress Bar - Nouveau Design Complet */
 .progress-bar {
+  /* Isolation pour éviter les conflits de z-index */
+  isolation: isolate;
+  
+  /* Dimensions et espacement */
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 25px auto;
   flex-shrink: 0;
+  
+  /* Padding généreux pour éviter tout masquage */
+  padding: 35px 25px;
+  
+  /* Positionnement */
+  position: relative;
+  
+  /* Pas de fond, bordure ni ombre */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  
+  /* Garantir la visibilité */
+  overflow: visible !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  
+  /* Z-index modéré pour éviter les conflits */
+  z-index: 5;
 }
 
 .progress-steps {
+  /* Layout flex */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  /* Positionnement */
   position: relative;
-  padding: 0 20px;
+  
+  /* Dimensions */
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 0;
+  box-sizing: border-box;
+  
+  /* Garantir la visibilité */
+  overflow: visible !important;
+  visibility: visible !important;
 }
 
+/* Ligne de progression en arrière-plan */
 .progress-steps::before {
   content: '';
   position: absolute;
   top: 50%;
-  left: 20px;
-  right: 20px;
-  height: 3px;
-  background: linear-gradient(90deg, #7dc4e4, #B6E5FF, #FFE5B6);
-  border-radius: 2px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    #7dc4e4 0%,
+    #B6E5FF 30%,
+    #FFE5B6 60%,
+    #B6E5FF 100%
+  );
+  border-radius: 3px;
   z-index: 0;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 3px rgba(125, 196, 228, 0.3);
 }
 
+/* Étapes individuelles */
 .progress-step {
-  width: 36px;
-  height: 36px;
+  /* Dimensions fixes */
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  flex-shrink: 0;
+  
+  /* Style de base */
   border-radius: 50%;
   background: #FFFFFF;
   border: 3px solid #7dc4e4;
   color: #4da8d1;
+  
+  /* Layout interne */
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  /* Typographie */
   font-weight: 800;
-  font-size: 16px;
-  position: relative;
-  z-index: 1;
-  transition: all 0.3s ease;
-  opacity: 0.5;
+  font-size: 17px;
   font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
+  
+  /* Positionnement */
+  position: relative;
+  z-index: 2;
+  
+  /* Transitions */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* État initial */
+  opacity: 0.6;
+  
+  /* Ombres */
+  box-shadow: 
+    0 3px 6px rgba(125, 196, 228, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  
+  /* Garantir la visibilité */
+  overflow: visible !important;
+  visibility: visible !important;
+  pointer-events: auto;
 }
 
+/* État actif */
 .progress-step.active {
-  opacity: 0.7;
-  background: #f0f8fb;
+  opacity: 0.85;
+  background: linear-gradient(135deg, #f0f8fb 0%, #e6f4f9 100%);
   border-color: #4da8d1;
   color: #2596be;
+  box-shadow: 
+    0 4px 8px rgba(77, 168, 209, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
 }
 
+/* État courant (étape actuelle) */
 .progress-step.current {
   opacity: 1;
-  transform: scale(1.2);
-  background: #FFFFFF;
+  background: linear-gradient(135deg, #FFFFFF 0%, #f0f8fb 100%);
   color: #2596be;
   border: 4px solid #2596be;
-  box-shadow: 0 4px 0 0 #2596be, 0 8px 16px rgba(37, 150, 190, 0.3);
-  font-size: 18px;
+  font-size: 19px;
+  z-index: 3;
+  transform: scale(1.2) translateY(-3px);
+  box-shadow: 
+    0 5px 0 0 #2596be,
+    0 10px 20px rgba(37, 150, 190, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 1);
 }
 
 /* Report Form Container */
@@ -142,6 +226,8 @@
   flex-direction: column;
   min-height: fit-content;
   overflow: visible;
+  position: relative;
+  z-index: 1;
   border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2,2 Q25,1 50,2 T98,2 Q99,25 98,50 T98,98 Q75,99 50,98 T2,98 Q1,75 2,50 T2,2' fill='none' stroke='%237dc4e4' stroke-width='4'/%3E%3C/svg%3E") 4;
 }
 
@@ -812,9 +898,42 @@
     font-size: 28px;
   }
   
+  .progress-bar {
+    padding: 25px 15px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+  
+  .progress-steps {
+    padding: 8px 0;
+    min-height: 50px;
+    gap: 2px;
+    overflow-x: visible !important;
+  }
+  
+  .progress-steps::before {
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+  
   .progress-step {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  
+  .progress-step.current {
+    font-size: 17px;
+    transform: scale(1.15) translateY(-2px);
   }
 }
