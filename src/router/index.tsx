@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Home } from "@/pages/Home/index";
+import { Landing } from "@/pages/Landing/index";
 import { StudentDashboard } from "@/pages/StudentDashboard/index";
 import { TeacherDashboard } from "@/pages/TeacherDashboard/index";
 import { HelpOthers } from "@/pages/HelpOthers/index";
@@ -12,6 +13,10 @@ const routes = [
     {
         path: "/",
         element: <Home />
+    },
+    {
+        path: "/landing",
+        element: <Landing />
     },
     {
         path: "/login",
