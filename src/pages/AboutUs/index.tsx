@@ -18,12 +18,16 @@ export function AboutUs() {
         {/* Hero Section */}
         <header className="hero-section">
           <div className="hero-content">
-            <h1 className="hero-title">Je te crois</h1>
-            <h2 className="hero-subtitle">Signalement du harcèlement scolaire</h2>
-            <p className="slogan">Signaler le harcèlement pour les élèves vulnérables.</p>
-            <Link to="/student" className="cta-primary">
-              Essayez maintenant
-            </Link>
+            <div className="hero-image">
+              <img src="https://api.arasaac.org/v1/pictograms/20401?plural=false&color=true&backgroundColor=none&url=false&download=false" alt="Je te crois" className="hero-logo" />
+            </div>
+            <div className="hero-text">
+              <h1 className="hero-title">Je te crois</h1>
+              <h2 className="hero-subtitle">Signaler le harcèlement pour les élèves en situation de handicap verbal</h2>
+              <Link to="/teacher" className="cta-primary">
+                Essayer
+              </Link>
+            </div>
           </div>
         </header>
 
