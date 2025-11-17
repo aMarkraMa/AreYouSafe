@@ -381,8 +381,10 @@
 
 .frequency-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .frequency-btn {
@@ -396,6 +398,10 @@
   font-weight: 600;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 .frequency-btn::before {
@@ -423,12 +429,34 @@
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
 }
 
+.frequency-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.frequency-btn:hover .frequency-icon {
+  transform: scale(1.1);
+}
+
+.frequency-label {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
 .frequency-btn.selected {
   border-color: #3b82f6;
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
   transform: scale(1.05);
+}
+
+.frequency-btn.selected .frequency-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) brightness(1.1);
 }
 
 .form-actions {
@@ -465,6 +493,13 @@
     0 4px 8px rgba(125, 196, 228, 0.15) !important;
 }
 
+/* 箭头图标样式 - 更大更粗 */
+.form-actions .previous-btn svg {
+  width: 32px !important;
+  height: 32px !important;
+  stroke-width: 4px !important;
+}
+
 .form-actions .previous-btn:hover {
   opacity: 0.85;
   transform: translateY(-2px) rotate(1deg);
@@ -472,6 +507,10 @@
     0 3px 0 0 #7dc4e4,
     0 6px 12px rgba(125, 196, 228, 0.25) !important;
   background: #f0f8fb !important;
+}
+
+.form-actions .previous-btn:hover svg {
+  stroke-width: 5px !important;
 }
 
 /* Next button - strengthened */
@@ -484,6 +523,20 @@
     0 4px 12px rgba(37, 150, 190, 0.3) !important;
   color: white !important;
   font-weight: 800 !important;
+}
+
+/* 箭头图标样式 - 更大更粗 */
+.form-actions .next-btn:not([disabled]) svg {
+  width: 36px !important;
+  height: 36px !important;
+  stroke-width: 5px !important;
+}
+
+/* Submit 按钮的 Send 图标样式 - 更大更粗 */
+.form-actions .next-btn:not([disabled]) svg[data-lucide="send"] {
+  width: 40px !important;
+  height: 40px !important;
+  stroke-width: 6px !important;
 }
 
 .form-actions button::before {
@@ -511,6 +564,17 @@
     0 8px 16px rgba(37, 150, 190, 0.4) !important;
   border-color: #0d5a7f !important;
   background: linear-gradient(135deg, #1a7ba8 0%, #2596be 100%) !important;
+}
+
+.form-actions .next-btn:not([disabled]):hover svg {
+  stroke-width: 6px !important;
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+.form-actions .next-btn:not([disabled]):hover svg[data-lucide="send"] {
+  stroke-width: 7px !important;
+  transform: scale(1.15);
 }
 
 .form-actions button:active {
