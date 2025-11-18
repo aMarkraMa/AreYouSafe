@@ -36,7 +36,7 @@ export function SafetyThermometerComponent({ onSelect, selectedSafety }: SafetyT
     <div className="safety-thermometer">
       <div className="question-header">
         <div className="question-icon-placeholder">🛡️</div>
-        <h3 className="text-lg font-semibold mb-6 text-center">Do you feel safe at school?</h3>
+        <h3 className="text-lg font-semibold mb-6 text-center">Te sens-tu en sécurité à l'école ?</h3>
       </div>
       
       <div className="thermometer-container-horizontal">

@@ -58,7 +58,7 @@
 
 .thermometer-item-horizontal {
   padding: 28px 20px;
-  border: 3px solid #7dc4e4;
+  border: none;
   border-radius: 24px;
   background: #FFFFFF;
   cursor: pointer;
@@ -72,11 +72,8 @@
   overflow: hidden; /* 防止填充/伪元素溢出 */
   contain: paint; /* 限制绘制区域在按钮内 */
   isolation: isolate; /* 避免外部合成影响 */
-  box-shadow: 
-    0 3px 0 0 #7dc4e4,
-    0 6px 12px rgba(125, 196, 228, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
+  box-shadow: var(--shadow-medium), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  font-family: 'Varela Round', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
   min-height: 120px;
   width: 100%;
   box-sizing: border-box;
@@ -98,22 +95,14 @@
 
 .thermometer-item-horizontal:hover {
   transform: translateY(-4px); /* 移除旋转/缩放以避免边界溢出 */
-  box-shadow: 
-    0 5px 0 0 currentColor,
-    0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-hover);
   filter: brightness(1.1);
-  border-width: 4px;
-  border-color: #7dc4e4; /* 悬浮时保持边框可见 */
 }
 
 .thermometer-item-horizontal.active {
-  box-shadow: 
-    0 8px 0 0 currentColor,
-    0 16px 32px rgba(0, 0, 0, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-strong), inset 0 2px 4px rgba(255, 255, 255, 0.3);
   transform: translateY(-6px); /* 保持轻微位移，不旋转缩放 */
   font-weight: 800;
-  border-width: 4px;
   animation: itemPulse 2s ease-in-out infinite;
 }
 
