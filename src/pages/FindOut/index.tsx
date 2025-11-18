@@ -7,11 +7,22 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle, X, Check } from 'lucide-react';
 import './FindOut.css';
 
+// Import GIF assets
+import StrangerDangerGif from '@/assets/gifs/StrangerDanger.gif';
+import PersonalSpacesGif from '@/assets/gifs/PersonalSpaces.gif';
+import BadTouchGif from '@/assets/gifs/BadTouch.gif';
+import SexualHarasmentGif from '@/assets/gifs/SexualHarasment.gif';
+import AdultContentGif from '@/assets/gifs/AdultContent.gif';
+import BullyGif from '@/assets/gifs/Bully.gif';
+import UncomfortableGif from '@/assets/gifs/Uncomfortable.gif';
+import SeekHelpGif from '@/assets/gifs/SeekHelp.gif';
+import AdultAttentionGif from '@/assets/gifs/AdultAttention.gif';
+
 // Training slides data with isGood property
 const trainingSlides = [
   {
     id: 1,
-    gif: 'src/assets/gifs/StrangerDanger.gif',
+    gif: StrangerDangerGif,
     title: 'Danger étranger',
     description: 'Si un étranger s\'approche ou offre quelque chose qui semble mal, dis non, éloigne-toi et demande de l\'aide à un adulte de confiance.',
     isGood: false, // This is a BAD scenario
@@ -19,7 +30,7 @@ const trainingSlides = [
   },
   {
     id: 2,
-    gif: 'src/assets/gifs/PersonalSpaces.gif',
+    gif: PersonalSpacesGif,
     title: 'Espace personnel et parties intimes',
     description: 'Ton espace personnel et tes parties intimes t\'appartiennent. Si quelqu\'un essaie de te toucher, dis non, éloigne-toi et dis-le à un adulte de confiance.',
     isGood: true, // Knowing about personal space is GOOD
@@ -27,7 +38,7 @@ const trainingSlides = [
   },
   {
     id: 3,
-    gif: 'src/assets/gifs/BadTouch.gif',
+    gif: BadTouchGif,
     title: 'Mauvais contact',
     description: 'Si quelqu\'un te touche d\'une manière qui te met mal à l\'aise, dis non, cours et dis-le immédiatement à un adulte de confiance.',
     isGood: false, // This is a BAD scenario
@@ -35,7 +46,7 @@ const trainingSlides = [
   },
   {
     id: 4,
-    gif: 'src/assets/gifs/SexualHarasment.gif',
+    gif: SexualHarasmentGif,
     title: 'Harcèlement physique/sexuel',
     description: 'Si quelqu\'un te touche, t\'attrape ou se comporte d\'une manière qui te semble dangereuse, dis non fort, éloigne-toi et cherche de l\'aide auprès d\'un adulte de confiance.',
     isGood: false, // This is a BAD scenario
@@ -43,7 +54,7 @@ const trainingSlides = [
   },
   {
     id: 5,
-    gif: 'src/assets/gifs/AdultContent.gif',
+    gif: AdultContentGif,
     title: 'Contenu pour adultes',
     description: 'Si tu vois accidentellement du contenu pour adultes ou inapproprié, détourne le regard, quitte la situation et dis-le à un adulte de confiance.',
     isGood: false, // This is a BAD scenario
@@ -51,7 +62,7 @@ const trainingSlides = [
   },
   {
     id: 6,
-    gif: 'src/assets/gifs/Bully.gif',
+    gif: BullyGif,
     title: 'Intimidation',
     description: 'Si quelqu\'un se moque de toi, te fait mal ou te fait peur, dis stop, éloigne-toi et demande de l\'aide à un adulte de confiance.',
     isGood: false, // This is a BAD scenario
@@ -59,7 +70,7 @@ const trainingSlides = [
   },
   {
     id: 7,
-    gif: 'src/assets/gifs/Uncomfortable.gif',
+    gif: UncomfortableGif,
     title: 'Se sentir mal à l\'aise',
     description: 'Si quelque chose ou quelqu\'un te met mal à l\'aise, écoute ce sentiment—dis non, éloigne-toi et parle à un adulte de confiance.',
     isGood: false, // Feeling uncomfortable is a warning sign (BAD situation)
@@ -67,7 +78,7 @@ const trainingSlides = [
   },
   {
     id: 8,
-    gif: 'src/assets/gifs/SeekHelp.gif',
+    gif: SeekHelpGif,
     title: 'Parler à un adulte de confiance',
     description: 'Quand tu te sens effrayé, confus ou mal à l\'aise, parle à un adulte de confiance pour qu\'il puisse t\'aider à rester en sécurité.',
     isGood: true, // Seeking help is GOOD
@@ -75,7 +86,7 @@ const trainingSlides = [
   },
   {
     id: 9,
-    gif: 'src/assets/gifs/AdultAttention.gif',
+    gif: AdultAttentionGif,
     title: 'Demander de l\'aide à un adulte de confiance',
     description: 'Si tu fais face à quelque chose de dangereux, dis non, éloigne-toi de la situation et demande immédiatement de l\'aide à un adulte de confiance.',
     isGood: true, // Seeking help is GOOD
