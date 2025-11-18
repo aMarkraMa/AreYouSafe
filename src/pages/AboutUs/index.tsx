@@ -8,7 +8,6 @@ import { ArasaacPicto } from '../../components/ui/ArasaacPicto';
 import './AboutUs.css';
 
 export function AboutUs() {
-  /*
   useEffect(() => {
     // Charger le script Fillout
     const script = document.createElement('script');
@@ -21,7 +20,7 @@ export function AboutUs() {
       document.body.removeChild(script);
     };
   }, []);
-  */
+
   return (
     <div className="aboutus-page">
       {/* Back Button */}
@@ -222,9 +221,7 @@ export function AboutUs() {
         <footer className="footer-cta">
           <h2>Prêt à faire la différence ?</h2>
           <p>Rejoignez-nous dans la lutte contre le harcèlement scolaire.</p>
-          <Link to="/teacher" className="cta-primary">
-                Essayer
-              </Link>
+
 
           
           <div 
@@ -234,7 +231,7 @@ export function AboutUs() {
             data-fillout-inherit-parameters 
             data-fillout-dynamic-resize
           ></div>
-          */
+          
         </footer>
       </div>
     </div>
