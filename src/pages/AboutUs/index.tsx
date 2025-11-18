@@ -76,7 +76,9 @@ export function AboutUs() {
                 <div className="step-number">1</div>
                 <div className="step-content">
                   <h3>Signalement</h3>
+                  <img src="public/screenshot_home.png"  alt="Signalement" className="workflow-icon" />
                   <p>L'élève veut faire un signalement.</p>
+
                 </div>
               </div>
               <div className="workflow-arrow">→</div>
@@ -85,6 +87,8 @@ export function AboutUs() {
                 <div className="step-number">2</div>
                 <div className="step-content">
                   <h3>Questions visuelles</h3>
+                  <img src="public/screenshot_type.png"  alt="Signalement" className="workflow-icon" />
+
                   <p>L'application pose des questions visuelles (librairie AAC).</p>
                 </div>
               </div>
@@ -93,8 +97,10 @@ export function AboutUs() {
               <div className="workflow-step">
                 <div className="step-number">3</div>
                 <div className="step-content">
-                  <h3>Confirmation</h3>
-                  <p>L'élève confirme le signalement.</p>
+                  <h3>Questions visuelles</h3>
+                  <img src="public/screenshot_type.png"  alt="Signalement" className="workflow-icon" />
+
+                  <p>L'application pose des questions visuelles (librairie AAC).</p>
                 </div>
               </div>
               <div className="workflow-arrow">→</div>
@@ -102,7 +108,32 @@ export function AboutUs() {
               <div className="workflow-step">
                 <div className="step-number">4</div>
                 <div className="step-content">
+                  <h3>Précisions</h3>
+                  <img src="public/screenshot_bodypart.png"  alt="Signalement" className="workflow-icon" />
+
+                  <p>L'élève peut préciser par le visuel.</p>
+                </div>
+              </div>
+              <div className="workflow-arrow">→</div>
+              
+
+              <div className="workflow-step">
+                <div className="step-number">5</div>
+                <div className="step-content">
+                  <h3>Confirmation</h3>
+                  <img src="public/screenshot_report_review.png"  alt="Signalement" className="workflow-icon" />
+
+                  <p>L'élève confirme le signalement.</p>
+                </div>
+              </div>
+              <div className="workflow-arrow">→</div>
+              
+              <div className="workflow-step">
+                <div className="step-number">6</div>
+                <div className="step-content">
                   <h3>Envoi</h3>
+                  <img src="public/screenshot_teacher_dashboard.png"  alt="Signalement" className="workflow-icon" />
+
                   <p>Le signalement est envoyé au responsable d'établissement.</p>
                 </div>
               </div>
@@ -128,10 +159,31 @@ export function AboutUs() {
               <div className="feature-icon">💬</div>
               <div className="feature-content">
                 <h3>Basé sur la Communication Améliorée et Alternative (AAC)</h3>
-                <p>
-                  Je te crois utilise des pictogrammes AAC pour permettre aux élèves de 
-                  s'exprimer facilement.
-                </p>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+                  <img src="https://static.arasaac.org/pictograms/27685/27685_500.png" alt="AAC icon" width="150" height="150" style={{ flexShrink: 0 }} />
+                  <p style={{ margin: 0 }}>
+                    Je te crois utilise des pictogrammes ARASAAC pour permettre aux élèves de 
+                    s'exprimer facilement.
+                    <br />
+                    <br />
+                    En savoir plus sur le site de l'ARASAAC{' '}
+                    <a
+                      href="https://arasaac.org/fr/aac"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: '#2596be',
+                        textDecoration: 'underline',
+                        transition: 'color 0.2s',
+                      }}
+                      onMouseOver={e => (e.currentTarget.style.color = '#46afde')}
+                      onMouseOut={e => (e.currentTarget.style.color = '#2596be')}
+                    >
+                      ici
+                    </a>
+                  </p>
+                </div>
+     
                 <div className="aac-definition">
                   <strong>Qu'est-ce que l'AAC ?</strong>
                   <p>
