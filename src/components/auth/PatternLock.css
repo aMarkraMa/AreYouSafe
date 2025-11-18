@@ -48,7 +48,8 @@
   padding: 20px;
   background: #f8fafc;
   border-radius: 16px;
-  border: 2px solid #e2e8f0;
+  border: none;
+  box-shadow: var(--shadow-soft);
 }
 
 .pattern-dot {
@@ -88,25 +89,25 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 3px solid #cbd5e1;
+  border: none;
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   position: relative;
+  box-shadow: var(--shadow-soft);
 }
 
 .pattern-dot.selected .dot-outer {
-  border-color: #3b82f6;
   background: #eff6ff;
   transform: scale(1.1);
+  box-shadow: var(--shadow-medium);
 }
 
 .pattern-dot.last-selected .dot-outer {
-  border-color: #3b82f6;
   background: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  box-shadow: var(--shadow-strong);
 }
 
 .dot-inner {
@@ -139,9 +140,9 @@
 }
 
 .pattern-lock.error .pattern-grid {
-  border-color: #fecaca;
   background: #fef2f2;
   animation: shake 0.5s ease;
+  box-shadow: 0 0 0 2px #fecaca;
 }
 
 .pattern-lock.disabled {
@@ -169,7 +170,7 @@
 /* High Contrast Mode */
 @media (prefers-contrast: high) {
   .dot-outer {
-    border-width: 4px;
+    box-shadow: var(--shadow-medium);
   }
 
   .pattern-line {

@@ -76,6 +76,10 @@
     --radius: 0.5rem;
     --gradient-sunset: radial-gradient(200% 75% at 50% 100%, #FF7100FF 0%, #DFC882FF 10%, #CFDAAFFF 19%, #A5D8D6FF 35%, #A5D7E3FF 70%, #A6D1F2FF 100%);
     --hero-title-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-soft: 0 2px 8px rgba(128, 128, 128, 0.15);
+    --shadow-medium: 0 4px 12px rgba(128, 128, 128, 0.2);
+    --shadow-strong: 0 6px 20px rgba(128, 128, 128, 0.25);
+    --shadow-hover: 0 8px 24px rgba(128, 128, 128, 0.3);
 }
 
 .dark {

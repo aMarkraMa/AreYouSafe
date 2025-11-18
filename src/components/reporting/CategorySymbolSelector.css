@@ -103,7 +103,7 @@
 
 .symbol-card-category {
   padding: 24px 16px;
-  border: 3px solid #7dc4e4;
+  border: none;
   border-radius: 24px;
   background: #FFFFFF;
   cursor: pointer;
@@ -115,10 +115,7 @@
   gap: 10px;
   position: relative;
   overflow: hidden;
-  box-shadow: 
-    0 3px 0 0 #7dc4e4,
-    0 6px 12px rgba(125, 196, 228, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-medium), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   font-family: 'Varela Round', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
   min-height: 120px;
   width: 100%;
@@ -145,23 +142,15 @@
 }
 
 .symbol-card-category:hover {
-  border-color: #4da8d1;
   background: linear-gradient(135deg, #f0f8fb 0%, #e6f4f9 100%);
   transform: translateY(-4px) rotate(-1deg) scale(1.05);
-  box-shadow: 
-    0 5px 0 0 #4da8d1,
-    0 10px 20px rgba(77, 168, 209, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   z-index: 1;
 }
 
 .symbol-card-category.selected {
-  border-color: #2596be;
   background: linear-gradient(135deg, #e6f4f9 0%, #d4ebf5 100%);
-  box-shadow: 
-    0 6px 0 0 #2596be,
-    0 12px 24px rgba(37, 150, 190, 0.35),
-    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-strong), inset 0 2px 4px rgba(255, 255, 255, 0.9);
   transform: scale(1.05) rotate(-2deg);
   z-index: 1;
 }
