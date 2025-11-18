@@ -39,9 +39,9 @@ export function AboutUs() {
             </div>
             <div className="hero-text">
               <h1 className="hero-title">Je te crois</h1>
-              <h2 className="hero-subtitle">Signaler le harcèlement pour les élèves en situation de handicap verbal</h2>
-              <Link to="/teacher" className="cta-primary">
-                Essayer
+              <h2 className="hero-subtitle">Signaler le harcèlement par le visuel</h2>
+              <Link to="/student" className="cta-primary">
+                Essayer la démo
               </Link>
             </div>
           </div>
@@ -54,17 +54,33 @@ export function AboutUs() {
             <div className="audience-grid">
               <div className="audience-card">
                 <ArasaacPicto id={37444} align="center" size="50%" alt="Enfant autistique" className="audience-icon" />
-                <h3>Élèves autistiques harcelés</h3>
-                <p>Une interface adaptée pour faciliter l'expression</p>
+                <h3>
+                  <span style={{ fontSize: '4em', color: 'FireBrick', fontWeight: 'bold', lineHeight: 1 }}>
+                    72%
+                  </span>
+                  <br />
+                  des élèves autistiques sont harcelés
+                </h3>  
+                <p> ➔ Une interface adaptée pour faciliter l'expression</p>
               </div>
               <div className="audience-card">
               <ArasaacPicto id={32558} align="center" size="50%" alt="Enfant autistique" className="audience-icon" />
-              <h3>Élèves dyslexiques</h3>
+              <h3>
+                  <span style={{ fontSize: '4em', color: 'DarkOrange', fontWeight: 'bold', lineHeight: 1 }}>
+                    30%
+                  </span>
+                  <br />
+                  de plus de harcèlement parmi les élèves dyslexiques
+                </h3>
                 <p>Communication visuelle pour surmonter les difficultés de lecture</p>
               </div>
               <div className="audience-card">
-              <ArasaacPicto id={8173} align="center" size="50%" alt="Enfant autistique" className="audience-icon" />
-                <h3>Élèves non francophones</h3>
+              <ArasaacPicto id={8173} align="center" size="40%" alt="Enfant autistique" className="audience-icon" />
+              <h3>
+                  <span style={{ fontSize: '4em', color: 'DarkRed', fontWeight: 'bold', lineHeight: 1 }}>
+                    30%
+                  </span>
+                  <br />des élèves non-francophones se sentent discriminés en classe</h3>
                 <p>Pictogrammes universels pour une communication sans barrière linguistique</p>
               </div>
             </div>
@@ -99,17 +115,6 @@ export function AboutUs() {
               <div className="workflow-step">
                 <div className="step-number">3</div>
                 <div className="step-content">
-                  <h3>Questions visuelles</h3>
-                  <img src="/screenshot_type.png"  alt="Signalement" className="workflow-icon" />
-
-                  <p>L'application pose des questions visuelles (librairie AAC).</p>
-                </div>
-              </div>
-              <div className="workflow-arrow">→</div>
-              
-              <div className="workflow-step">
-                <div className="step-number">4</div>
-                <div className="step-content">
                   <h3>Précisions</h3>
                   <img src="/screenshot_bodypart.png"  alt="Signalement" className="workflow-icon" />
 
@@ -117,6 +122,19 @@ export function AboutUs() {
                 </div>
               </div>
               <div className="workflow-arrow">→</div>
+
+              <div className="workflow-step">
+                <div className="step-number">4</div>
+                <div className="step-content">
+                  <h3>Humeur</h3>
+                  <img src="/screenshot_moodmeter.png"  alt="Signalement" className="workflow-icon" />
+
+                  <p>L'élève peut exprimer ses émotions</p>
+                </div>
+              </div>
+              <div className="workflow-arrow">→</div>
+              
+
               
 
               <div className="workflow-step">
@@ -133,10 +151,10 @@ export function AboutUs() {
               <div className="workflow-step">
                 <div className="step-number">6</div>
                 <div className="step-content">
-                  <h3>Envoi</h3>
+                  <h3>Notification du responsable</h3>
                   <img src="/screenshot_teacher_dashboard.png"  alt="Signalement" className="workflow-icon" />
 
-                  <p>Le signalement est envoyé au responsable d'établissement.</p>
+                  <p>Le responsable d'établissement reçoit le signalement avec un rapport écrit généré par l'application et peut agir en conséquence.</p>
                 </div>
               </div>
             </div>
@@ -197,7 +215,9 @@ export function AboutUs() {
             </div>
           </section>
         </main>
-
+        <Link to="/student" className="cta-secondary">
+                Essayer la démo
+              </Link>
         {/* Call to Action Footer */}
         <footer className="footer-cta">
           <h2>Prêt à faire la différence ?</h2>
