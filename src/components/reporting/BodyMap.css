@@ -5,11 +5,12 @@
 }
 
 .body-map-wrapper {
-  border: 3px solid #e5e7eb;
+  border: none;
   border-radius: 16px;
   padding: 16px;
   background: #fafafa;
   cursor: pointer;
+  box-shadow: var(--shadow-soft);
 }
 
 .body-map-svg {

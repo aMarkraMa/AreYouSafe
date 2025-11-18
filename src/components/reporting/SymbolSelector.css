@@ -7,7 +7,7 @@
 
 .category-filter-btn {
   padding: 10px 20px;
-  border: 2px solid #e5e7eb;
+  border: none;
   border-radius: 12px;
   background: white;
   cursor: pointer;
@@ -16,6 +16,7 @@
   font-weight: 600;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-soft);
 }
 
 .category-filter-btn::before {
@@ -37,17 +38,15 @@
 }
 
 .category-filter-btn:hover {
-  border-color: #3b82f6;
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+  box-shadow: var(--shadow-medium);
 }
 
 .category-filter-btn.active {
-  border-color: #3b82f6;
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: var(--shadow-strong);
   transform: scale(1.05);
 }
 
@@ -59,7 +58,7 @@
 
 .symbol-card {
   padding: 20px;
-  border: 2px solid #e5e7eb;
+  border: none;
   border-radius: 16px;
   background: white;
   cursor: pointer;
@@ -71,6 +70,7 @@
   gap: 12px;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-soft);
 }
 
 .symbol-card::before {
@@ -92,16 +92,14 @@
 }
 
 .symbol-card:hover {
-  border-color: #3b82f6;
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  box-shadow: var(--shadow-hover);
 }
 
 .symbol-card.selected {
-  border-color: #3b82f6;
   background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3), 0 8px 25px rgba(59, 130, 246, 0.25);
+  box-shadow: var(--shadow-strong);
   transform: scale(1.08);
 }
 

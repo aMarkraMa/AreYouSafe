@@ -1,11 +1,25 @@
 /**
  * About Us Page - Information about Je Te Crois
  */
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { ArasaacPicto } from '../../components/ui/ArasaacPicto';
 import './AboutUs.css';
 
 export function AboutUs() {
+  useEffect(() => {
+    // Charger le script Fillout
+    const script = document.createElement('script');
+    script.src = 'https://server.fillout.com/embed/v1/';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Nettoyer le script lors du démontage
+      document.body.removeChild(script);
+    };
+  }, []);
   return (
     <div className="aboutus-page">
       {/* Back Button */}
@@ -18,12 +32,16 @@ export function AboutUs() {
         {/* Hero Section */}
         <header className="hero-section">
           <div className="hero-content">
-            <h1 className="hero-title">Je te crois</h1>
-            <h2 className="hero-subtitle">Signalement du harcèlement scolaire</h2>
-            <p className="slogan">Signaler le harcèlement pour les élèves vulnérables.</p>
-            <Link to="/student" className="cta-primary">
-              Essayez maintenant
-            </Link>
+            <div className="hero-image">
+              <ArasaacPicto id={20401} size="100%" alt="Je te crois" className="hero-logo" />
+            </div>
+            <div className="hero-text">
+              <h1 className="hero-title">Je te crois</h1>
+              <h2 className="hero-subtitle">Signaler le harcèlement pour les élèves en situation de handicap verbal</h2>
+              <Link to="/teacher" className="cta-primary">
+                Essayer
+              </Link>
+            </div>
           </div>
         </header>
 
@@ -33,17 +51,17 @@ export function AboutUs() {
             <h2 className="section-title">Conçu pour les élèves vulnérables</h2>
             <div className="audience-grid">
               <div className="audience-card">
-                <div className="audience-icon">👥</div>
+                <ArasaacPicto id={37444} align="center" size="50%" alt="Enfant autistique" className="audience-icon" />
                 <h3>Élèves autistiques harcelés</h3>
                 <p>Une interface adaptée pour faciliter l'expression</p>
               </div>
               <div className="audience-card">
-                <div className="audience-icon">📖</div>
-                <h3>Élèves dyslexiques</h3>
+              <ArasaacPicto id={32558} align="center" size="50%" alt="Enfant autistique" className="audience-icon" />
+              <h3>Élèves dyslexiques</h3>
                 <p>Communication visuelle pour surmonter les difficultés de lecture</p>
               </div>
               <div className="audience-card">
-                <div className="audience-icon">🌍</div>
+              <ArasaacPicto id={8173} align="center" size="50%" alt="Enfant autistique" className="audience-icon" />
                 <h3>Élèves non francophones</h3>
                 <p>Pictogrammes universels pour une communication sans barrière linguistique</p>
               </div>
@@ -130,9 +148,13 @@ export function AboutUs() {
         <footer className="footer-cta">
           <h2>Prêt à faire la différence ?</h2>
           <p>Rejoignez-nous dans la lutte contre le harcèlement scolaire.</p>
-          <Link to="/student" className="cta-secondary">
-            Essayez maintenant
-          </Link>
+          <div 
+            style={{width: '100%', height: '500px'}} 
+            data-fillout-id="imjudugNyGus" 
+            data-fillout-embed-type="standard" 
+            data-fillout-inherit-parameters 
+            data-fillout-dynamic-resize
+          ></div>
         </footer>
       </div>
     </div>
